@@ -16,6 +16,33 @@ pnpm workspace monorepo using TypeScript. Each package manages its own dependenc
 - **API codegen**: Orval (from OpenAPI spec)
 - **Build**: esbuild (CJS bundle)
 
+## Artifacts
+
+### YouTube to MP3 (`artifacts/yt-mp3`)
+- **Type**: React + Vite web app
+- **Preview path**: `/`
+- **Purpose**: Allows users to input a YouTube URL and download the audio as an MP3 file
+- **Features**:
+  - URL validation (YouTube links only)
+  - Video info preview (title, thumbnail, duration, view count)
+  - MP3 conversion via yt-dlp + ffmpeg on the backend
+  - File download with proper filename
+  - Error handling for private, unavailable, or restricted videos
+  - Max file size: 100MB
+
+### API Server (`artifacts/api-server`)
+- **Type**: Express 5 API
+- **Routes**:
+  - `GET /api/healthz` — Health check
+  - `GET /api/info?url=<youtube-url>` — Fetch video metadata
+  - `POST /api/download` — Convert and download as MP3
+
+## System Dependencies
+
+- **ffmpeg**: Used for audio conversion (pre-installed via Nix)
+- **yt-dlp**: Python package for YouTube audio extraction (installed via pip/python-3.12)
+- **Python 3.12**: Required runtime for yt-dlp
+
 ## Key Commands
 
 - `pnpm run typecheck` — full typecheck across all packages
